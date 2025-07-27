@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earland - Food Delivery & Blog</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- BBQ Loading Animation Mr Owais -->
+  <div id="bbqLoader" class="bbq-loader">
+    <h1 class="bbq-text-animation">Mr Foodes - MR Owais</h1>
+    <div class="bbq-grill-container">
+      <div class="bbq-grill">
+        <div class="grill-grates">
+          <div></div><div></div><div></div><div></div><div></div>
+        </div>
+      </div>
+      <div class="bbq-leg left"></div>
+      <div class="bbq-leg right"></div>
+      <div class="flame flame-1"></div>
+      <div class="flame flame-2"></div>
+      <div class="flame flame-3"></div>
+      <div class="flame flame-4"></div>
+      <div class="loader-bounce">🍔</div>
+    </div>
+  </div>
+
+  <div class="app-container hidden" id="mainAppContainer">
+      <!-- Animated floating decorative elements -->
+      <div class="floating-cube"></div>
+      <div class="floating-leaf"></div>
+      <div class="floating-circle"></div>
+      <div class="floating-square"></div>
+
+      <!-- Theme Toggle Button -->
+      <button id="themeToggle" class="theme-toggle">
+          <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- Mobile Navigation Bar -->
+      <div id="mobileNav" class="mobile-nav hidden">
+          <div class="mobile-nav-content">
+              <button class="mobile-nav-item active" data-panel="items">
+                  <i class="fas fa-home"></i>
+                  <span>Items</span>
+              </button>
+              <button class="mobile-nav-item" data-panel="menu">
+                  <i class="fas fa-bars"></i>
+                  <span>Menu</span>
+              </button>
+              <button class="mobile-nav-item" data-panel="articles">
+                  <i class="fas fa-file-text"></i>
+                  <span>Articles</span>
+              </button>
+              <button class="mobile-nav-item" data-panel="settings">
+                  <i class="fas fa-cog"></i>
+                  <span>Settings</span>
+              </button>
+              <button class="mobile-nav-item" id="mobileCartBtn">
+                  <i class="fas fa-shopping-cart"></i>
+                  <span>Cart</span>
+                  <span id="mobileCartCount" class="mobile-cart-count hidden">0</span>
+              </button>
+          </div>
+      </div>
+
+      <!-- Authentication Modals -->
+      <div id="authModal" class="modal-overlay hidden">
+          <div class="modal-content">
+              <button class="modal-close" id="closeAuthModal">
+                  <i class="fas fa-times"></i>
+              </button>
+              
+              <!-- Login Form -->
+              <div id="loginForm" class="auth-form">
+                  <h2>Welcome Back</h2>
+                  <p>Sign in to your account</p>
+                  <form id="loginFormElement">
+                      <div class="form-group">
+                          <label for="loginEmail">Email</label>
+                          <input type="email" id="loginEmail" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="loginPassword">Password</label>
+                          <input type="password" id="loginPassword" required>
+                      </div>
+                      <button type="submit" class="btn-primary">Sign In</button>
+                  </form>
+                  <p class="auth-switch">
+                      Don't have an account? 
+                      <a href="#" id="showSignup">Sign up</a>
+                  </p>
+              </div>
+
+              <!-- Signup Form -->
+              <div id="signupForm" class="auth-form hidden">
+                  <h2>Create Account</h2>
+                  <p>Join MR -Foodes Mr Owais today</p>
+                  <form id="signupFormElement">
+                      <div class="form-group">
+                          <label for="signupName">Full Name</label>
+                          <input type="text" id="signupName" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="signupEmail">Email</label>
+                          <input type="email" id="signupEmail" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="signupPassword">Password</label>
+                          <input type="password" id="signupPassword" required>
+                      </div>
+                      <button type="submit" class="btn-primary">Create Account</button>
+                  </form>
+                  <p class="auth-switch">
+                      Already have an account? 
+                      <a href="#" id="showLogin">Sign in</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+
+      <!-- Blog Post Modal -->
+      <div id="blogModal" class="modal-overlay hidden">
+          <div class="modal-content blog-modal">
+              <button class="modal-close" id="closeBlogModal">
+                  <i class="fas fa-times"></i>
+              </button>
+              
+              <div id="createBlogForm" class="blog-form">
+                  <h2>Create New Article</h2>
+                  <form id="blogFormElement">
+                      <div class="form-group">
+                          <label for="blogTitle">Title</label>
+                          <input type="text" id="blogTitle" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="blogCategory">Category</label>
+                          <select id="blogCategory" required>
+                              <option value="">Select Category</option>
+                              <option value="Health">Health</option>
+                              <option value="Recipes">Recipes</option>
+                              <option value="Cooking Tips">Cooking Tips</option>
+                              <option value="Promotions">Promotions</option>
+                              <option value="News">News</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="blogContent">Content</label>
+                          <textarea id="blogContent" rows="8" required></textarea>
+                      </div>
+                      <button type="submit" class="btn-primary">Publish Article</button>
+                  </form>
+              </div>
+
+              <div id="viewBlogPost" class="blog-view hidden">
+                  <div class="blog-header">
+                      <h1 id="blogPostTitle"></h1>
+                      <div class="blog-meta">
+                          <div class="author-info">
+                              <div class="avatar">
+                                  <span id="blogAuthorInitials"></span>
+                              </div>
+                              <div class="author-details">
+                                  <span id="blogAuthorName"></span>
+                                  <span id="blogPostDate"></span>
+                              </div>
+                          </div>
+                          <span class="blog-category" id="blogPostCategory"></span>
+                      </div>
+                  </div>
+                  <div class="blog-content" id="blogPostContent"></div>
+                  <button id="backToBlogList" class="btn-secondary">← Back to Articles</button>
+              </div>
+          </div>
+      </div>
+
+      <!-- Shopping Cart Modal -->
+      <div id="cartModal" class="modal-overlay hidden">
+          <div class="modal-content cart-modal">
+              <div class="modal-header">
+                  <h2>Shopping Cart</h2>
+                  <button class="modal-close" id="closeCartModal">
+                      <i class="fas fa-times"></i>
+                  </button>
+              </div>
+              <div class="cart-content" id="cartContent">
+                  <div class="empty-cart">
+                      <i class="fas fa-shopping-cart"></i>
+                      <p>Your cart is empty</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="main-layout">
+          <!-- Left Sidebar -->
+          <div class="sidebar">
+              <!-- User Profile -->
+              <div class="user-profile" id="userProfile">
+                  <button id="mobileMenuToggle" class="mobile-menu-toggle">
+                      <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="avatar" id="userAvatar">
+                      <span id="userInitials">?</span>
+                  </div>
+                  <div class="user-info">
+                      <h3 id="userName">Guest User</h3>
+                      <button id="authButton" class="auth-btn">Sign In</button>
+                  </div>
+              </div>
+
+              <!-- Navigation Menu -->
+              <nav class="nav-menu">
+                  <button class="nav-item active" data-panel="items">
+                      <i class="fas fa-home"></i>
+                      <span>Items</span>
+                  </button>
+                  <button class="nav-item" data-panel="menu">
+                      <i class="fas fa-bars"></i>
+                      <span>Menu</span>
+                  </button>
+                  <button class="nav-item" data-panel="articles">
+                      <i class="fas fa-file-text"></i>
+                      <span>Articles</span>
+                  </button>
+                  <button class="nav-item" data-panel="settings">
+                      <i class="fas fa-cog"></i>
+                      <span>Settings</span>
+                  </button>
+              </nav>
+
+              <!-- Delivery Promotion -->
+              <div class="promo-card">
+                  <div class="promo-content">
+                      <h4>Faster delivery!</h4>
+                      <p>Learn more</p>
+                      <button class="promo-btn">
+                          <i class="fas fa-arrow-right"></i>
+                      </button>
+                  </div>
+                  <div class="promo-decoration">
+                      <div class="promo-circle"></div>
+                      <div class="promo-rocket">🚀</div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Main Content -->
+          <div class="main-content">
+              <!-- Items Panel -->
+              <div id="itemsPanel" class="content-panel active">
+                  <div class="content-header">
+                      <div class="welcome-text">
+                          <h1>Welcome to</h1>
+                          <h1>Earland 😊</h1>
+                          <div class="auth-buttons-container" id="authButtonsContainer">
+                              <button class="btn-gradient-purple-pink" id="loginBtn">Login</button>
+                              <button class="btn-gradient-pink-orange" id="signupBtn">Sign Up</button>
+                          </div>
+                      </div>
+                      <div class="header-actions">
+                          <div class="search-container">
+                              <i class="fas fa-search"></i>
+                              <input type="text" id="searchInput" placeholder="Search food...">
+                          </div>
+                          <button id="cartButton" class="cart-button">
+                              <i class="fas fa-shopping-cart"></i>
+                              <span id="cartCount" class="cart-count hidden">0</span>
+                          </button>
+                      </div>
+                  </div>
+
+                  <!-- Food Categories -->
+                  <div class="categories">
+                      <button class="category-btn active" data-category="All">
+                          <span>🍽️</span>
+                          All
+                      </button>
+                      <button class="category-btn" data-category="Burgers">
+                          <span>🍔</span>
+                          Burgers
+                      </button>
+                      <button class="category-btn" data-category="Pizza">
+                          <span>🍕</span>
+                          Pizza
+                      </button>
+                      <button class="category-btn" data-category="Snacks">
+                          <span>🥨</span>
+                          Snacks
+                      </button>
+                      <button class="category-btn" data-category="Drinks">
+                          <span>🥤</span>
+                          Drinks
+                      </button>
+                      <button class="category-btn" data-category="Grocery">
+                          <span>🛒</span>
+                          Grocery
+                      </button>
+                  </div>
+
+                  <!-- Food Items -->
+                  <div class="section-header">
+                      <h2 id="itemsSectionTitle">All Items</h2>
+                      <button class="view-all-btn" id="viewAllMenu">
+                          View all menu
+                          <i class="fas fa-arrow-right"></i>
+                      </button>
+                  </div>
+
+                  <div class="food-grid" id="foodGrid">
+                      <!-- Food items will be populated by JavaScript -->
+                  </div>
+              </div>
+
+              <!-- Menu Panel -->
+              <div id="menuPanel" class="content-panel">
+                  <div class="panel-header">
+                      <h1>Full Menu</h1>
+                      <p>Explore our complete food collection</p>
+                  </div>
+                  <div id="menuContent">
+                      <!-- Menu content will be populated by JavaScript -->
+                  </div>
+              </div>
+
+              <!-- Articles Panel -->
+              <div id="articlesPanel" class="content-panel">
+                  <div class="panel-header">
+                      <div class="articles-header">
+                          <div>
+                              <h1>Articles & News</h1>
+                              <p>Stay updated with latest food trends and news</p>
+                          </div>
+                          <button id="createArticleBtn" class="btn-primary hidden">
+                              <i class="fas fa-plus"></i>
+                              Create Article
+                          </button>
+                      </div>
+                  </div>
+                  <div class="articles-grid" id="articlesGrid">
+                      <!-- Articles will be populated by JavaScript -->
+                  </div>
+              </div>
+
+              <!-- Settings Panel -->
+              <div id="settingsPanel" class="content-panel">
+                  <div class="panel-header">
+                      <h1>Settings</h1>
+                      <p>Customize your app experience</p>
+                  </div>
+                  <div class="settings-content">
+                      <div class="settings-card">
+                          <h3>Appearance</h3>
+                          <div class="setting-item">
+                              <div class="setting-info">
+                                  <h4>Dark Mode</h4>
+                                  <p>Toggle between light and dark theme</p>
+                              </div>
+                              <label class="switch">
+                                  <input type="checkbox" id="darkModeSwitch">
+                                  <span class="slider"></span>
+                              </label>
+                          </div>
+                      </div>
+
+                      <div class="settings-card" id="accountSettings">
+                          <h3>Account</h3>
+                          <div class="account-info">
+                              <div class="avatar large" id="settingsAvatar">
+                                  <span id="settingsInitials">?</span>
+                              </div>
+                              <div class="account-details">
+                                  <h4 id="settingsName">Guest User</h4>
+                                  <p id="settingsEmail">Not signed in</p>
+                              </div>
+                          </div>
+                          <button id="editProfileBtn" class="btn-primary hidden">Edit Profile</button>
+                          <button id="signOutBtn" class="btn-secondary hidden">Sign Out</button>
+                      </div>
+
+                      <div class="settings-card">
+                          <h3>Notifications</h3>
+                          <div class="setting-item">
+                              <div class="setting-info">
+                                  <h4>Order Updates</h4>
+                                  <p>Get notified about order status</p>
+                              </div>
+                              <label class="switch">
+                                  <input type="checkbox" checked>
+                                  <span class="slider"></span>
+                              </label>
+                          </div>
+                          <div class="setting-item">
+                              <div class="setting-info">
+                                  <h4>Promotions</h4>
+                                  <p>Receive special offers and deals</p>
+                              </div>
+                              <label class="switch">
+                                  <input type="checkbox" checked>
+                                  <span class="slider"></span>
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Right Sidebar -->
+          <div class="right-sidebar">
+              <!-- Special Offer -->
+              <div class="offer-card">
+                  <div class="offer-content">
+                      <h3>-50% off</h3>
+                      <p>the full price of burgers</p>
+                      <button class="offer-btn" id="burgerOfferBtn">Order Now</button>
+                  </div>
+                  <div class="offer-decoration">
+                      <div class="burger-image">🍔</div>
+                      <div class="offer-circle"></div>
+                      <div class="offer-dot"></div>
+                  </div>
+              </div>
+
+              <!-- Articles Preview -->
+              <div class="articles-preview">
+                  <div class="preview-header">
+                      <h3>Articles</h3>
+                      <button id="viewAllArticles">
+                          <i class="fas fa-arrow-right"></i>
+                      </button>
+                  </div>
+                  <div class="articles-list" id="articlesPreview">
+                      <!-- Articles preview will be populated by JavaScript -->
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div id="mobileOverlay" class="mobile-overlay hidden"></div>
+  </div>
+
+  <script src="App.js"></script>
+</body>
+</html>
